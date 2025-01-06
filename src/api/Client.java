@@ -1,6 +1,7 @@
 package api;
 
 import java.net.http.HttpRequest;
+
 import java.net.http.HttpClient;
 import java.net.http.HttpClient.Version;
 import java.net.http.HttpClient.Redirect;
@@ -18,14 +19,11 @@ public class Client {
 	private String response;
 	
 	public Client () {
-		this.parameters = "";
-		this.response = "";
-		this.resource = "";
-		this.url = ""; 
+		this.resource = ApiConfig.RESOURCE;
 	}
 
 	public void setResource (String resource) {
-		this.resource += resource.toLowerCase() + "/"; 
+		this.resource += resource + "/"; 
 	}
 	
 	public String getResource () {
@@ -33,7 +31,7 @@ public class Client {
 	}
 	
 	public void setParameters (String parameters) {
-		this.parameters += parameters.toLowerCase() + "/"; 
+		this.parameters += parameters + "/"; 
 	}
 	
 	public String getParameters () {

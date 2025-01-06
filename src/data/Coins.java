@@ -10,10 +10,6 @@ public class Coins {
 	private ArrayList <String> coins;
 	private ArrayList <String> codeCoins;
 	
-	public Coins () {
-		
-	}
-	
 	public Coins (String json) {
 			this.response = this.fromJson(json, CoinsResponse.class);
 			this.coins = new ArrayList <> ();
