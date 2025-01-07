@@ -29,23 +29,25 @@ public class Coins implements JsonConverter {
 	        return gson.fromJson(json, classOfT);
 	 }
 	
-	public void printResponse () {
-		System.out.println ("Resultado de la operación: " + this.jsonData.result () + "\n");
+	public String printResponse () {
+		String response = "Resultado de la operación: " 
+					    + this.jsonData.result () + "\n" +"\nMonedas activas en el mercado:\n"; 
 		
 		if (this.response.codes () != null) {
-			System.out.println ("Monedas activas en el mercado:\n");
-			
 			for (String []  code : this.response.codes ()) {
 				this.coins.add("Codigo: " + code[0] + " -> Nombre: " + code[1]);
 				this.codeCoins.add(code [0]);
 				
-				System.out.println("\t" + code[0] + " -> " + code[1]);
+				response += "\n" + "\t" + code[0] + " -> " + code[1] + "\n";
 			}
 			
-		} else {
-			 System.out.println("El recurso solicitado no se encuentra disponible.\n"
-			 		+ "Para mas información visite: " + this.jsonData.documentation () + " o consulte la cuota disponible");
-		}
+			return response;
+			
+		} 
+			response += "El recurso solicitado no se encuentra disponible.\nPara mas información visite: " 
+		             + this.jsonData.documentation () + " o consulte la cuota disponible";
+			
+			return response;	
 	}
 	
     public boolean codeCoins_isValid (String code) {

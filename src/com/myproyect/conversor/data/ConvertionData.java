@@ -9,9 +9,9 @@ public record ConvertionData(
 	    @SerializedName ("target_code")
 	    String code2, 
 	        
-	    @SerializedName ("conversion_rate")
-	    double exchange, 
-	        
-	    @SerializedName ("conversion_result")
+	    @SerializedName("conversion_rate")
+	    double exchange,  
+
+	    @SerializedName("conversion_result")
 	    double convertionResult) 
 		{}

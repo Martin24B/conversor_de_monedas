@@ -20,8 +20,8 @@ public class Client {
 	
 	public Client () {
 		this.resource = ApiConfig.RESOURCE;
-		this.parameters = "";
-		this.response = ""; 
+		this.parameters = " ";
+		this.response = " "; 
 	}
 
 	public void setResource (String resource) {
@@ -33,10 +33,10 @@ public class Client {
 	}
 	
 	public void sendRequest () {
-		this.url = ApiConfig.HOST_SERVER + ApiConfig.API_KEY + this.resource + this.parameters; 
+		this.url = (ApiConfig.HOST_SERVER + ApiConfig.API_KEY + this.resource + this.parameters).replace(" ", ""); 
+		
 		this.resource = "";
 		this.parameters = "";
-		
 		
 		try {
 			URI uri = URI.create(this.url);

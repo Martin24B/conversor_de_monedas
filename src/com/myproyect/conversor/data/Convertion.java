@@ -9,17 +9,30 @@ public class Convertion implements JsonConverter{
 	private JsonData jsonData;
 	private AllConvertionData AllResponse;
     private ConvertionData response;
+    private double amount;
 
-    public Convertion(String json) {
+    public Convertion(String AllJson) {
     	try {
-    		this.jsonData = this.fromJson(json, JsonData.class);
-    		this.response = this.fromJson(json, ConvertionData.class);
-    		this.AllResponse = this.fromJson(json, AllConvertionData.class);
+    		this.jsonData = this.fromJson(AllJson, JsonData.class);
+    		this.AllResponse = this.fromJson(AllJson, AllConvertionData.class);
     		
     	} catch (JsonSyntaxException e) {
     			throw new IllegalArgumentException("Error al procesar el JSON: " + e.getMessage());
     	  }	
     }
+    
+    public Convertion(String json, double amount) {
+    	this.amount = amount; 
+    	
+    	try {
+    		this.jsonData = this.fromJson(json, JsonData.class);
+    		this.response = this.fromJson(json, ConvertionData.class);
+    		
+    	} catch (JsonSyntaxException e) {
+    			throw new IllegalArgumentException("Error al procesar el JSON: " + e.getMessage());
+    	  }	
+    }
+    
 
     @Override
     public <T> T fromJson(String json, Class<T> classOfT) {
@@ -27,46 +40,50 @@ public class Convertion implements JsonConverter{
         return gson.fromJson(json, classOfT);
     }
 
-    public void printTasasDeCambio() {
-        System.out.println("Resultado de la operación: " + this.jsonData.result() + "\n");
-        System.out.println("Código de moneda base: " + this.AllResponse.code () + "\n");
-
-        if (this.AllResponse.exchange() != null) {
-            System.out.println("Tasas de cambio disponibles:\n");
+    public String printAllExchange() {
+    	String response = "Resultado de la operación: " + this.jsonData.result()  
+    			+ "\n" + "\nCódigo de moneda base: " + this.AllResponse.code () 
+    			+ "\n" + "\nTasas de cambio disponibles para 1 " + this.AllResponse.code() + ":\n" + "\n"; 
+    	
+        if (this.AllResponse.exchange() != null) {         
             for (Map.Entry<String, Double> entry : this.AllResponse.exchange().entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue());
+                response += entry.getKey() + ": " + entry.getValue() + "\n";
             }
-        } else {
-            System.out.println("El recurso solicitado no se encuentra disponible.\n"
-                    + "Para más información, visite: " + this.jsonData.documentation() + " o consulte la cuota disponible.");
+            return response; 
+        } 
+        
+        response += "El recurso solicitado no se encuentra disponible.\nPara más información, visite: " 
+        		+ this.jsonData.documentation() + " o consulte la cuota disponible."; 
+   
+        return response;
+    }
+  
+    
+    public String printExchange() {
+    	String response = "Resultado de la operación: " + this.jsonData.result()  
+		+ "\n" + "\nCódigo de moneda base: " + this.response.code () 
+		+ "\n" + "\nCódigo de moneda secundaria: " + this.response.code2 () 
+		+ "\n" + "\nTasa de cambio disponible para 1: " + this.response.code() + " a " + this.response.code2(); 
+    	
+        if (this.response.exchange() != 0) { 
+        	response += this.response.exchange() + "\n";
+        	return response; 
         }
+      
+        response += "El recurso solicitado no se encuentra disponible.\n" + "Para más información, visite: " + this.jsonData.documentation () + " o consulte la cuota disponible.\n";
+        return response;
     }
     
-    public void printTasaDeCambio() {
-        System.out.println("Resultado de la operación: " + this.jsonData.result () + "\n");
-        System.out.println("Código de moneda base: " + this.response.code ());
-        System.out.println("Código de moneda secundaria: " + this.response.code2 ());
+    public String convertion () {
+    	String response = "El monto elegido para " + this.amount + " " + this.response.code() + " equivale a "; 
 
-        if (this.response.exchange() != 0) { 
-            System.out.println("Tasa de cambio disponible para 1 peso argentino: " + this.response.exchange());
-        } else {
-            System.out.println("El recurso solicitado no se encuentra disponible.\n"
-                    + "Para más información, visite: " + this.jsonData.documentation () + " o consulte la cuota disponible.");
-        }
-    }
-    
-    public void equivalenciaMonetaria () {
-        System.out.println("Resultado de la operación: " + this.response.convertionResult() + "\n");
-        System.out.println("Código de moneda base: " + this.response.code ());
-        System.out.println("Código de moneda secundaria: " + this.response.code ());
-
-        if (this.response.exchange() != 0) { 
-            System.out.println("Tasa de cambio disponible para 1: " + this.response.code() + " a " + this.response.code2()  + " = " +this.response.exchange());
-         
-        } else {
-            System.out.println("El recurso solicitado no se encuentra disponible.\n"
-                    + "Para más información, visite: " + this.jsonData.documentation () + " o consulte la cuota disponible.");
-        }
+        if (this.response.convertionResult() != 0) { 
+        	response += this.response.convertionResult() + " " + this.response.code2() + "\n"; 
+            return response; 
+        } 
+        
+        response += "El recurso solicitado no se encuentra disponible.\n" + "Para más información, visite: " + this.jsonData.documentation () + " o consulte la cuota disponible.\n";
+        return response;
     }
  
 }

@@ -1,0 +1,12 @@
+Recurso elegido: pair
+
+Resultado de la operación: success
+
+Código de moneda base: EUR
+
+Código de moneda secundaria: ARS
+
+Tasa de cambio disponible para 1: EUR a ARS
+1075.3185
+El monto elegido para 500.0EUR equivale a 
+537659.25 ARS

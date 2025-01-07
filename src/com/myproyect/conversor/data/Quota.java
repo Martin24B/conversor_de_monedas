@@ -22,20 +22,27 @@ public class Quota implements JsonConverter{
 	        return gson.fromJson(json, classOfT);
 	 }
 	
-	 public void printResponse () {
-			System.out.println ("Resultado de la operación: " + this.jsonData.result () + "\n");
-			
+	 public String printResponse () {
+		 String response = "Resultado de la operación: " + this.jsonData.result () + "\n";
+		 
 			if (this.response.quotaLimit () != "0" && this.response.quotaLimit () != null) {
 				int quotaRemaining = (Integer.valueOf(this.response.quotaLimit ()) - Integer.valueOf(this.response.requestRemaining()));
-				
-				System.out.println ("Cuota establecida: " + this.response.quotaLimit () + "\nSolicitudes disponibles: " 
-							+ this.response.requestRemaining() + "\nSolicitudes realizadas: " + quotaRemaining);
+				 
+				response += "Cuota establecida: " + this.response.quotaLimit () 
+							+ "\nSolicitudes disponibles: " + this.response.requestRemaining() 
+							+ "\nSolicitudes realizadas: " + quotaRemaining;
 			
+				return response;
 			} else if (this.response.quotaLimit () == "0") {
-				 System.out.println("La cuota disponible ha sido agotada, para mas información visite" + this.jsonData.termsOfUse ());
-			} else {
-				 System.out.println("El recurso solicitado no se encuentra disponible.\n"
-					 		+ "Para mas información visite: " + this.jsonData.documentation ());
-			}
+				response += "La cuota disponible ha sido agotada, para mas información visite" + this.jsonData.termsOfUse ();
+				
+				return response; 
+			} 
+			
+			response += "El recurso solicitado no se encuentra disponible.\n"
+					 	+ "Para mas información visite: " + this.jsonData.documentation (); 
+				
+			return response; 
 		}
+
 }

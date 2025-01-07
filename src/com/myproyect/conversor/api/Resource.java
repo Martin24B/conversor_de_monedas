@@ -28,7 +28,7 @@ public enum Resource {
 
 	public static boolean isValid (String value) {
 		for (Resource resource : Resource.values ()) {
-			if (resource.name ().equalsIgnoreCase (value)) {
+			if (resource.name().toLowerCase().equals(value)) {
 				return true; 
 			}
 		}	
@@ -37,7 +37,7 @@ public enum Resource {
 	
 	public static int posResource (String value) {
 		for (Resource resource : Resource.values()) 	  
-			  if (resource.name().equalsIgnoreCase(value)) 
+			  if (resource.name().toLowerCase().equals(value)) 
 				  return resource.ordinal()+1;
 		
 		return -1; 
@@ -46,14 +46,16 @@ public enum Resource {
 	public static String listOfRequest(String resource) {
 		String listOfRequest = "";
 		
-		if (resource.equalsIgnoreCase (PAIR.name()))
+		if (resource.equals (PAIR.name().toLowerCase())) {
 	        	listOfRequest =
 	        			"""
 	        			  	\nSolicitudes disponibles para el recurso pair:\n 
-	        			\t1) Para conocer la tasa de cambio y la equivalencia monetaria actual de dos monedas asignadas.\n
-	        			\t2) Para conocer la tasa de cambio y la equivalencia monetaria actual de dos monedas asignadas basadas en un monto"\n		 
+	        			\t1) Para conocer la tasa de cambio actual de dos monedas asignadas.\n
+	        			\t2) Para conocer la tasa de cambio y la equivalencia monetaria actual de dos monedas asignadas basado en un monto"		 
 	        			""";
-			
+	        	return listOfRequest; 
+		}
+		
 		return listOfRequest; 
 	}
 }
