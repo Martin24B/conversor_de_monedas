@@ -1,0 +1,14 @@
+BIENVENIDOS AL CONVERSOR DE MONEDAS EN TIEMPO REAL MAS COMPLETO DEL MERCADO!
+
+En este conversor de monedas el usuario dispone de una gran variedad de información relacionada con el mercado actual como por ejemplo tasas de cambio, conversiones monetarias, actividad económica de cada moneda, etc.
+
+IMPORTANTE!
+
+	Si es su primera vez utilizando el conversor de monedas se recomienda elegir el recurso CODES o visitar el archivo Readme.md para mantenerse informado sobre las funcionalidades disponibles de la App.
+
+	Si desea realizar múltiples operaciones se recomienza utilizar el recurso Quota para consultar el limite disponible y evitar bloqueos inesperados.
+
+MUCHAS GRACIAS POR SU VISITA, QUE LO DISFRUTE!
+
+Para comenzar a operar seleccione la opción correspondiente al recurso que desea solicitar:
+

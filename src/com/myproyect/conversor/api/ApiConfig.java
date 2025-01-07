@@ -1,4 +1,4 @@
-package api;
+package com.myproyect.conversor.api;
 
 public final class ApiConfig {
     public static final String HOST_SERVER = "https://v6.exchangerate-api.com";
