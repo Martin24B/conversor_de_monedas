@@ -8,16 +8,13 @@ import com.google.gson.JsonSyntaxException;
 public class Coins implements JsonConverter {
 	private JsonData jsonData; 
 	private CoinData response;
-	private ArrayList <String> coins;
-	private ArrayList <String> codeCoins;
+	private static ArrayList <String> coins = new ArrayList <> ();
+	private static ArrayList <String> codeCoins = new ArrayList <> (); ;
 	
 	public Coins (String json) {
 		try {
 		    this.jsonData = this.fromJson(json, JsonData.class);
 		    this.response = this.fromJson(json, CoinData.class);
-		    
-		    this.coins = new ArrayList <> ();
-			this.codeCoins = new ArrayList <> (); 
 		} catch (JsonSyntaxException e) {
 		    throw new IllegalArgumentException("Error al procesar el JSON: " + e.getMessage());
 		}	
@@ -35,8 +32,8 @@ public class Coins implements JsonConverter {
 		
 		if (this.response.codes () != null) {
 			for (String []  code : this.response.codes ()) {
-				this.coins.add("Codigo: " + code[0] + " -> Nombre: " + code[1]);
-				this.codeCoins.add(code [0]);
+				coins.add("Codigo: " + code[0] + " -> Nombre: " + code[1]);
+				codeCoins.add(code [0]);
 				
 				response += "\n" + "\t" + code[0] + " -> " + code[1] + "\n";
 			}
@@ -50,7 +47,7 @@ public class Coins implements JsonConverter {
 			return response;	
 	}
 	
-    public boolean codeCoins_isValid (String code) {
-    	return this.codeCoins.contains(code); 
+    public static boolean codeCoinValid (String code) {
+    	return codeCoins.contains(code); 
     }
 }

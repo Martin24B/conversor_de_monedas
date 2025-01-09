@@ -9,7 +9,6 @@ public class Convertion implements JsonConverter{
 	private JsonData jsonData;
 	private AllConvertionData AllResponse;
     private ConvertionData response;
-    private double amount;
 
     public Convertion(String AllJson) {
     	try {
@@ -21,9 +20,7 @@ public class Convertion implements JsonConverter{
     	  }	
     }
     
-    public Convertion(String json, double amount) {
-    	this.amount = amount; 
-    	
+    public Convertion(String json, int option) {
     	try {
     		this.jsonData = this.fromJson(json, JsonData.class);
     		this.response = this.fromJson(json, ConvertionData.class);
@@ -63,10 +60,10 @@ public class Convertion implements JsonConverter{
     	String response = "Resultado de la operación: " + this.jsonData.result()  
 		+ "\n" + "\nCódigo de moneda base: " + this.response.code () 
 		+ "\n" + "\nCódigo de moneda secundaria: " + this.response.code2 () 
-		+ "\n" + "\nTasa de cambio disponible para 1: " + this.response.code() + " a " + this.response.code2(); 
+		+ "\n" + "\nTasa de cambio disponible para 1: " + this.response.code() + " a " + this.response.code2() + "\n"; 
     	
         if (this.response.exchange() != 0) { 
-        	response += this.response.exchange() + "\n";
+        	response += "\t" + this.response.exchange() + "\n";
         	return response; 
         }
       
@@ -75,10 +72,10 @@ public class Convertion implements JsonConverter{
     }
     
     public String convertion () {
-    	String response = "El monto elegido para " + this.amount + " " + this.response.code() + " equivale a "; 
+    	String response = "\nEl monto elegido en " + this.response.code() + " equivale a "; 
 
         if (this.response.convertionResult() != 0) { 
-        	response += this.response.convertionResult() + " " + this.response.code2() + "\n"; 
+        	response += "\t" + this.response.convertionResult() + " " + this.response.code2() + "\n"; 
             return response; 
         } 
         

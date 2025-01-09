@@ -13,33 +13,23 @@ import java.net.URI;
 import java.time.Duration; 
 
 public class Client { 
-	private String resource; 
-	private String parameters; 
-	private String url;
+	private String endpoint;
 	private String response;
 	
 	public Client () {
-		this.resource = ApiConfig.RESOURCE;
-		this.parameters = " ";
+		this.endpoint = ApiConfig.RESOURCE;
 		this.response = " "; 
 	}
-
-	public void setResource (String resource) {
-		this.resource += resource + "/"; 
-	}
 	
-	public void setParameters (String parameters) {
-		this.parameters += parameters + "/"; 
+	public void setUri (String uri) {
+		this.endpoint = uri; 
 	}
 	
 	public void sendRequest () {
-		this.url = (ApiConfig.HOST_SERVER + ApiConfig.API_KEY + this.resource + this.parameters).replace(" ", ""); 
-		
-		this.resource = "";
-		this.parameters = "";
+		String url = ApiConfig.HOST_SERVER + ApiConfig.API_KEY + this.endpoint; 
 		
 		try {
-			URI uri = URI.create(this.url);
+			URI uri = URI.create(url);
 			
 			HttpRequest request = HttpRequest.newBuilder()
 				.GET ()
@@ -62,7 +52,7 @@ public class Client {
 		} catch (InterruptedException e) {
 			System.out.println("Error de conexión: " + e.getMessage());
 		} catch (Exception e) {
-			System.out.println("Error inesperado: " + e.getMessage());
+			System.out.println("Error inesperado, verifique su conexión a internet: " + e.getMessage());
 		}
 	}
 	
